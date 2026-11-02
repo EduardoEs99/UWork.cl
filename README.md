@@ -4,15 +4,15 @@ UWork conecta a estudiantes de educación superior con oportunidades de trabajo 
 
 ## Vista previa
 
-| Inicio | Servicios |
-| --- | --- |
+| Inicio                                        | Servicios                                                         |
+| --------------------------------------------- | ----------------------------------------------------------------- |
 | ![Portada de UWork](public/previews/home.jpg) | ![Servicios para empresas de UWork](public/previews/services.jpg) |
 
 ![Página para estudiantes de UWork](public/previews/students.jpg)
 
 ## Demo en vivo
 
-[Ver UWork en GitHub Pages](https://eduardoes99.github.io/UWork.cl/)
+[Ver UWork](https://eduardoes99.github.io/UWork.cl/)
 
 ## Acerca del proyecto
 
