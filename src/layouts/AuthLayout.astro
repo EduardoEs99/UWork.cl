@@ -1,0 +1,37 @@
+---
+import "@/styles/global.css";
+import "@/styles/page-transition.css";
+import faviconUrl from "@/assets/img/logos/favicon.svg?url";
+import regularFont from "@/assets/fonts/a218039a3287bcfd-s.p.4a23d71b.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={faviconUrl} />
+    <link
+      rel="preload"
+      href={regularFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>{title} | Talento universitario a tu alcance</title>
+  </head>
+  <body>
+    <main id="contenido" class="min-h-svh overflow-x-clip bg-brand-surface">
+      <slot />
+    </main>
+  </body>
+</html>

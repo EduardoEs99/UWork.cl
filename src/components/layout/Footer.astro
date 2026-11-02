@@ -3,48 +3,62 @@ import { image as imageUrl } from "@/lib/assets";
 import instagramIcon from "@/assets/img/icons/instagram.svg?raw";
 import tiktokIcon from "@/assets/img/icons/tiktok.svg?raw";
 import linkedinIcon from "@/assets/img/icons/linkedin.svg?raw";
+import facebookIcon from "@/assets/img/icons/facebook.svg?raw";
+import mailIcon from "@/assets/img/icons/mail.svg?raw";
+import whatsappIcon from "@/assets/img/icons/whatsapp.svg?raw";
+import { routes } from "@/lib/routes";
 
-const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const studentsUrl = homeUrl + "estudiantes/";
+const homeUrl = routes.home;
+const studentsUrl = routes.students;
 
-const contacts = [
+const socials = [
   {
     title: "Instagram",
-    detail: "@uworkcl",
-    href: "https://www.instagram.com/uworkcl/",
+    detail: "uwork.cl",
     icon: instagramIcon,
-    external: true,
     hoverClass:
       "group-hover:text-social-instagram group-focus-visible:text-social-instagram",
   },
   {
     title: "LinkedIn",
-    detail: "Enlace por confirmar",
-    href: undefined,
+    detail: "uwork.cl",
     icon: linkedinIcon,
-    external: false,
     hoverClass:
       "group-hover:text-social-linkedin group-focus-visible:text-social-linkedin",
   },
   {
     title: "TikTok",
-    detail: "Enlace por confirmar",
-    href: undefined,
+    detail: "uwork.cl",
     icon: tiktokIcon,
-    external: false,
     hoverClass:
       "group-hover:text-social-tiktok group-focus-visible:text-social-tiktok",
+  },
+  {
+    title: "Facebook",
+    detail: "uwork.cl",
+    icon: facebookIcon,
+    hoverClass: "group-hover:text-blue-500 group-focus-visible:text-blue-500",
+  },
+];
+
+const contacts = [
+  {
+    title: "Correo",
+    icon: mailIcon,
+    hoverClass: "group-hover:text-red-500 group-focus-visible:text-red-500",
+  },
+  {
+    title: "WhatsApp",
+    icon: whatsappIcon,
+    hoverClass:
+      "group-hover:text-social-whatsapp group-focus-visible:text-social-whatsapp",
   },
 ];
 ---
 
-<footer
-  class="bg-brand-petroleum px-6 pt-13.75 pb-6.25 text-brand-soft md:px-page-gutter"
->
-  <div class="grid grid-cols-2 gap-5.5 md:grid-cols-footer md:gap-11.25">
-    <div
-      class="col-span-full flex flex-row items-center gap-6.25 md:col-span-1 md:flex-col md:items-start md:gap-3"
-    >
+<footer class="bg-brand-petroleum px-6 pt-13.75 pb-6.25 text-brand-soft md:px-page-gutter">
+  <div class="grid grid-cols-2 gap-x-1 gap-y-5.5 md:flex md:justify-between">
+    <div class="col-span-full flex flex-col items-center gap-3 p-1 text-center">
       <img
         src={imageUrl("logos/logo-light.svg")}
         alt="UWork"
@@ -52,96 +66,123 @@ const contacts = [
         height="40"
         decoding="async"
       />
-      <p class="text-xs leading-relaxed">
+      <p class="max-w-64 text-xs leading-relaxed">
         Conectamos estudiantes de educación superior con trabajos a su medida.
       </p>
+      <ul class="mt-1 flex items-center gap-3">
+        {contacts.map((contact) => (
+          <li>
+            <a
+              class="group flex size-11 items-center justify-center rounded-full border border-white/30"
+              href="#"
+              data-inert-link
+              aria-label={contact.title}
+            >
+              <span
+                class:list={[
+                  "text-white transition-colors duration-200",
+                  contact.hoverClass,
+                ]}
+              >
+                <Fragment set:html={contact.icon} />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
-    <div>
+
+    <div class="p-1">
       <h3 class="mt-3 mb-4.5 text-fine font-semibold text-white md:text-xs">
         NAVEGACIÓN
       </h3>
       <a
-        class="mb-2.5 block text-fine md:text-xs hover:underline"
+        class="mb-2.5 block w-fit text-fine md:text-xs hover:underline"
         href={homeUrl + "#como-funciona"}
       >
         ¿Cómo funciona?
       </a>
       <a
-        class="mb-2.5 block text-fine md:text-xs hover:underline"
+        class="mb-2.5 block w-fit text-fine md:text-xs hover:underline"
         href={homeUrl + "#empresas"}
       >
         Soy Empresa
       </a>
       <a
-        class="mb-2.5 block text-fine md:text-xs hover:underline"
+        class="mb-2.5 block w-fit text-fine md:text-xs hover:underline"
         href={homeUrl + "#personas"}
       >
         Soy Persona
       </a>
       <a
-        class="mb-2.5 block text-fine md:text-xs hover:underline"
+        class="mb-2.5 block w-fit text-fine md:text-xs hover:underline"
         href={studentsUrl}
       >
         Soy Estudiante
       </a>
-      <a class="mb-2.5 block text-fine md:text-xs hover:underline" href="#">
+      <a
+        class="mb-2.5 block w-fit text-fine md:text-xs hover:underline"
+        href="#"
+        data-inert-link
+      >
         Sobre nosotros
       </a>
     </div>
-    <div>
+
+    <div class="p-1">
       <h3 class="mt-3 mb-4.5 text-fine font-semibold text-white md:text-xs">
         LEGAL
       </h3>
-      <span class="mb-2.5 block text-xs">
-        Términos y condiciones [por confirmar]
-      </span>
-      <span class="block text-xs">Política de privacidad [por confirmar]</span>
+      <a class="mb-2.5 block text-xs hover:underline" href="#" data-inert-link>
+        Términos y condiciones
+      </a>
+      <a class="block text-xs hover:underline" href="#" data-inert-link>
+        Política de privacidad
+      </a>
     </div>
-    <div>
+
+    <div class="p-1">
       <h3 class="mt-3 mb-4.5 text-fine font-semibold text-white md:text-xs">
-        CONTACTO
+        REDES SOCIALES
       </h3>
       <ul class="flex flex-col gap-4">
-        {
-          contacts.map((contact) => (
-            <li>
-              <a
-                class="group flex items-start gap-3 rounded-sm"
-                href={contact.href}
-                target={contact.external ? "_blank" : undefined}
-                rel={contact.external ? "noopener noreferrer" : undefined}
+        {socials.map((social) => (
+          <li>
+            <a
+              class="group flex items-start gap-3 rounded-sm"
+              href="#"
+              data-inert-link
+              aria-label={social.title}
+            >
+              <span
+                class:list={[
+                  "mt-0.5 shrink-0 text-white transition-colors duration-200",
+                  social.hoverClass,
+                ]}
               >
-                <span
-                  class:list={[
-                    "mt-0.5 shrink-0 text-white transition-colors duration-200",
-                    contact.hoverClass,
-                  ]}
-                >
-                  <Fragment set:html={contact.icon} />
+                <Fragment set:html={social.icon} />
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs font-semibold text-white">
+                  {social.title}
                 </span>
-                <span class="min-w-0">
-                  <span class="block text-xs font-semibold text-white">
-                    {contact.title}
-                  </span>
+                {social.detail && (
                   <span class="mt-1 block text-xs leading-relaxed text-brand-soft wrap-break-word">
-                    {contact.detail}
+                    {social.detail}
                   </span>
-                </span>
-              </a>
-            </li>
-          ))
-        }
+                )}
+              </span>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   </div>
-  <div
-    class="mt-10 flex flex-col justify-between gap-2.5 border-t border-white/20 pt-5.5 text-2xs text-brand-soft md:flex-row md:gap-5"
-  >
+
+  <div class="mt-10 flex flex-col justify-between gap-2.5 border-t border-white/20 pt-5.5 text-2xs text-brand-soft md:flex-row md:gap-5">
     <span class="leading-copy">
       © 2026 UWork. Todos los derechos reservados.
     </span>
-    <span class="leading-copy">
-      Horario: [Lun a Vie, 9:00 a 18:00 · por confirmar]
-    </span>
+    <span class="leading-copy">Horario: lunes a viernes, 9:00 a 18:00</span>
   </div>
 </footer>

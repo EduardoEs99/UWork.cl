@@ -2,9 +2,11 @@
 import { image as imageUrl } from "@/lib/assets";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { routes } from "@/lib/routes";
 
-const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const studentsUrl = homeUrl + "estudiantes/";
+const homeUrl = routes.home;
+const studentsUrl = routes.students;
+const loginUrl = routes.login;
 const currentPath = Astro.url.pathname.replace(/\/+$/, "");
 const isHome = currentPath === homeUrl.replace(/\/+$/, "");
 const activeNav =
@@ -46,32 +48,32 @@ const navItems = [
           href={href}
           aria-current={activeNav === id ? "page" : undefined}
           class="nav-link py-1"
-          data-nav-label={label}
         >
           {label}
         </a>
       ))}
     </nav>
-    <div class="col-start-3 row-start-1 hidden items-center justify-self-end gap-3 text-sm whitespace-nowrap lg:flex xl:gap-5">
-      <a class="nav-link py-1" href="#">
-        {" "}
-        Sobre nosotros{" "}
-      </a>
-      <a
-        class="rounded-full bg-brand-orange/50 px-5 py-2.5 font-medium text-xs text-brand-petroleum transition-colors hover:bg-brand-orange/75 duration-300 ease-in-out"
-        href="#"
-      >
-        Iniciar sesión
-      </a>
-      <Button
-        className="min-h-9 px-5 py-2 text-xs"
-        href={homeSection("business-contact")}
-      >
-        Agenda una reunión
-      </Button>
+    <div class="col-start-3 row-start-1 flex items-center justify-self-end gap-3 lg:gap-5">
+      <div class="hidden items-center gap-3 text-sm whitespace-nowrap lg:flex xl:gap-5">
+        <a class="nav-link py-1" href="#" data-inert-link>
+          Sobre nosotros
+        </a>
+        <a
+          class="rounded-full bg-brand-orange/50 px-5 py-2.5 font-medium text-xs text-brand-petroleum transition-colors hover:bg-brand-orange/75 duration-300 ease-in-out"
+          href={loginUrl}
+        >
+          Iniciar sesión
+        </a>
+        <Button
+          className="min-h-9 px-5 py-2 text-xs"
+          href={homeSection("business-contact")}
+        >
+          Agenda una reunión
+        </Button>
+      </div>
 
       <button
-        class="col-start-1 row-start-1 justify-self-start bg-transparent p-1.5 text-brand-petroleum lg:hidden"
+        class="bg-transparent p-1.5 text-brand-petroleum lg:hidden"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-navigation"
@@ -96,15 +98,13 @@ const navItems = [
             href={href}
             aria-current={activeNav === id ? "page" : undefined}
             class="nav-link w-fit py-1"
-            data-nav-label={label}
           >
             {label}
           </a>
         ))}
         <a
-          href="#"
+          href={loginUrl}
           class="rounded-full bg-brand-orange/50 px-5 py-2.5 font-medium text-xs text-brand-petroleum transition-colors hover:bg-brand-orange/75 duration-300 ease-in-out text-center"
-          data-nav-label="Iniciar sesión"
         >
           Iniciar sesión
         </a>

@@ -20,6 +20,13 @@ document.querySelectorAll("[data-reveal]").forEach((element) => {
   );
   observer.observe(element);
 });
+document.addEventListener("click", (event) => {
+  if (
+    event.target instanceof Element &&
+    event.target.closest("[data-inert-link]")
+  )
+    event.preventDefault();
+});
 const centerSections = [...document.querySelectorAll("[data-center-anchor]")];
 if (centerSections.length) {
   const positionAnchors = () => {

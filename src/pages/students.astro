@@ -1,6 +1,7 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Button } from "@/components/ui/button";
+import { routes } from "@/lib/routes";
 import {
   Calendar,
   Wallet,
@@ -60,6 +61,7 @@ const questions = [
     text: "No. Tú decides qué trabajos aceptar según tus clases, tu disponibilidad y tus intereses.",
   },
 ];
+const registerUrl = routes.register;
 ---
 
 <MainLayout
@@ -205,33 +207,6 @@ const questions = [
 
   <section
     data-center-anchor
-    id="historias-estudiantes"
-    aria-labelledby="stories-title"
-    class="mx-auto max-w-4xl px-6 py-12 text-center md:py-16"
-  >
-    <h2
-      id="stories-title"
-      class="text-3xl leading-tight font-bold tracking-tight text-brand-petroleum md:text-4xl"
-    >
-      Experiencias que queremos compartir
-    </h2>
-    <div class="mt-8 rounded-3xl border border-dashed border-brand-border p-8 md:p-10">
-      <GraduationCap
-        className="mx-auto mb-4 size-8 text-brand-orange"
-        aria-hidden="true"
-      />
-      <p class="font-semibold text-brand-petroleum">
-        Aquí irán las historias de nuestros estudiantes
-      </p>
-      <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed">
-        Espacio de la propuesta reservado para testimonios reales. Contenido
-        pendiente de confirmar.
-      </p>
-    </div>
-  </section>
-
-  <section
-    data-center-anchor
     id="preguntas-estudiantes"
     aria-labelledby="faq-title"
     class="mx-auto max-w-3xl px-6 py-12 md:py-16"
@@ -266,13 +241,10 @@ const questions = [
         Estudia, trabaja y suma experiencia a tu ritmo.
       </p>
       <div class="mt-7">
-        <Button type="button" disabled aria-describedby="registration-status">
+        <Button nativeNavigation href={registerUrl}>
           Regístrate como estudiante
         </Button>
       </div>
-      <p id="registration-status" class="mt-4 text-sm">
-        Registro pendiente. Todavía no está disponible en esta propuesta.
-      </p>
     </div>
   </section>
 </MainLayout>

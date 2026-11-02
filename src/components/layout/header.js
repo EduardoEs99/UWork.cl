@@ -45,7 +45,6 @@ if (sectionLinks.length) {
     if (selected) markSection(selected.hash);
     else updateSection();
   };
-  // Wait until smooth scrolling settles before following the viewport.
   let scrollTimer;
   window.addEventListener(
     "scroll",

@@ -1,4 +1,3 @@
-// Vite resolves these imports to URLs in development and in the generated site.
 const images = import.meta.glob("@/assets/img/**/*.{png,svg,jpg,jpeg,webp}", {
   eager: true,
   import: "default",

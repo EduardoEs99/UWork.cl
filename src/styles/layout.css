@@ -5,15 +5,6 @@
     color 300ms ease-in-out,
     border-color 300ms ease-in-out;
 }
-/* Reserve the selected label's width so the header stays still. */
-.nav-link::after {
-  content: attr(data-nav-label);
-  display: block;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  font-weight: 600;
-}
 .nav-link[aria-current] {
   border-color: var(--color-brand-orange);
   color: var(--color-brand-petroleum);
@@ -28,48 +19,6 @@
   }
 }
 
-/* Keep the short page fade in CSS without a client-side router. */
-@view-transition {
-  navigation: auto;
-}
-#contenido {
-  view-transition-name: page-content;
-}
-header {
-  view-transition-name: site-header;
-}
-::view-transition-group(page-content),
-::view-transition-group(site-header),
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-old(site-header),
-::view-transition-new(site-header) {
-  animation: none;
-}
-::view-transition-old(page-content) {
-  animation: page-fade-out 160ms ease-out both;
-}
-::view-transition-new(page-content) {
-  animation: page-fade-in 160ms ease-out both;
-}
-@keyframes page-fade-out {
-  to {
-    opacity: 0;
-  }
-}
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(page-content),
-  ::view-transition-new(page-content) {
-    animation: none;
-  }
-}
-
-/* Include the global 100px scroll padding, aligning the full panel below the header. */
 #como-funciona {
   scroll-margin-top: -36px;
 }

@@ -15,12 +15,10 @@
   animation-play-state: paused;
 }
 
-/* Keep native hidden panels hidden even when they also have flex/grid utilities. */
 [hidden]:not([hidden="until-found"]) {
   display: none !important;
 }
 
-/* Paleta digital UWork; tonos suaves derivados para fondos y bordes. */
 @theme {
   --font-sans: "Poppins", sans-serif;
   --color-brand-header: #fcfcfc;
@@ -171,7 +169,6 @@
   }
 }
 
-/* Global defaults. Component appearance is defined with Tailwind utilities. */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
@@ -203,13 +200,11 @@ section[id] {
   scroll-margin-top: 80px;
 }
 
-/* Align these anchors below the header, including the global scroll padding. */
 #empresas {
   scroll-margin-top: -36px;
 }
 #personas,
 #company-needs {
-  /* The section's own padding already leaves room for the fixed header. */
   scroll-margin-top: -50px;
 }
 @media (min-width: 768px) {
@@ -241,7 +236,6 @@ section[id] {
   }
 }
 
-/* Center compact student sections; long mobile sections stay below the header. */
 section[data-center-anchor] {
   scroll-margin-top: -100px;
 }

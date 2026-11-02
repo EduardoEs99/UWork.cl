@@ -92,165 +92,157 @@ const photoLabelClass = "bg-white/94 text-brand-petroleum";
       id="student-profile-list"
       class="swiper-wrapper m-0 list-none items-center p-0"
     >
-      {
-        students.map(
-          (
-            { name, role, rating, university, career, year, portrait },
-            index,
-          ) => {
-            const webp = imageUrl("webp/tasker-hero/" + portrait + ".webp");
-            const png = imageUrl("png/tasker-hero/" + portrait + ".png");
-            return (
-              <li
-                class="swiper-slide h-90 max-w-full w-75"
-                data-profile-index={index}
+      {students.map(
+        ({ name, role, rating, university, career, year, portrait }, index) => {
+          const webp = imageUrl("webp/tasker-hero/" + portrait + ".webp");
+          const png = imageUrl("png/tasker-hero/" + portrait + ".png");
+          return (
+            <li
+              class="swiper-slide h-90 max-w-full w-75"
+              data-profile-index={index}
+            >
+              <article
+                class="student-card relative h-full"
+                data-student-card
+                data-flipped="false"
+                aria-label={"Perfil de " + name}
               >
-                <article
-                  class="student-card relative h-full"
-                  data-student-card
-                  data-flipped="false"
-                  aria-label={"Perfil de " + name}
-                >
-                  <div class="flip-inner relative h-full">
+                <div class="flip-inner relative h-full">
+                  <div
+                    class:list={[
+                      faceClass,
+                      "card-front flex flex-col bg-white px-5.5 pt-6 pb-15.5 text-brand-petroleum sm:px-6.5 sm:pt-6.5",
+                    ]}
+                    data-card-front
+                    id={"profile-data-" + portrait}
+                  >
                     <div
-                      class:list={[
-                        faceClass,
-                        "card-front flex flex-col bg-white px-5.5 pt-6 pb-15.5 text-brand-petroleum sm:px-6.5 sm:pt-6.5",
-                      ]}
-                      data-card-front
-                      id={"profile-data-" + portrait}
+                      class="profile-rating flex items-center gap-2 text-xs font-medium"
+                      role="img"
+                      aria-label={rating + " de 5 estrellas"}
                     >
-                      <div
-                        class="profile-rating flex items-center gap-2 text-xs font-medium"
-                        role="img"
-                        aria-label={rating + " de 5 estrellas"}
-                      >
-                        <span class="relative inline-flex" aria-hidden="true">
-                          <span class="flex gap-0.5 text-brand-border">
-                            {Array.from({ length: 5 }, () => (
-                              <Star className={starClass} />
-                            ))}
-                          </span>
-                          <span
-                            class="absolute inset-y-0 left-0 flex gap-0.5 overflow-hidden text-brand-orange"
-                            style={"width:" + Number(rating) * 20 + "%"}
-                          >
-                            {Array.from({ length: 5 }, () => (
-                              <Star className={starClass} />
-                            ))}
-                          </span>
+                      <span class="relative inline-flex" aria-hidden="true">
+                        <span class="flex gap-0.5 text-brand-border">
+                          {Array.from({ length: 5 }, () => (
+                            <Star className={starClass} />
+                          ))}
                         </span>
-                        <span>{rating}</span>
-                      </div>
-                      <div class="profile-education flex-1 pt-5 pb-4">
-                        <p class="mb-1.5 text-2xs tracking-card text-brand-gray uppercase">
-                          Carrera
-                        </p>
-                        <h2 class="text-card-title leading-card font-semibold text-balance">
-                          {career}
-                        </h2>
-                        <p class="mt-3 text-xs leading-body">{university}</p>
-                        <p class="mt-0.75 text-fine text-brand-gray">
-                          Cursando {year}
-                        </p>
-                      </div>
-                      <div class="profile-person flex items-center gap-3 border-t border-brand-mint pt-4">
-                        <picture class={avatarClass}>
-                          <source srcset={webp} type="image/webp" />
-                          <img
-                            class={avatarClass}
-                            src={png}
-                            alt=""
-                            width="44"
-                            height="44"
-                            loading="lazy"
-                            decoding="async"
-                            draggable="false"
-                          />
-                        </picture>
-                        <div>
-                          <h3 class="text-sm font-semibold">{name}</h3>
-                          <p class="mt-0.75 text-fine text-brand-gray">
-                            {role}
-                          </p>
-                        </div>
-                      </div>
+                        <span
+                          class="absolute inset-y-0 left-0 flex gap-0.5 overflow-hidden text-brand-orange"
+                          style={"width:" + Number(rating) * 20 + "%"}
+                        >
+                          {Array.from({ length: 5 }, () => (
+                            <Star className={starClass} />
+                          ))}
+                        </span>
+                      </span>
+                      <span>{rating}</span>
                     </div>
-                    <div
-                      class:list={[faceClass, "card-back bg-brand-soft"]}
-                      data-card-back
-                      id={"profile-photo-" + portrait}
-                      aria-hidden="true"
-                      inert
-                    >
-                      <picture class="block size-full">
+                    <div class="profile-education flex-1 pt-5 pb-4">
+                      <p class="mb-1.5 text-2xs tracking-card text-brand-gray uppercase">
+                        Carrera
+                      </p>
+                      <h2 class="text-card-title leading-card font-semibold text-balance">
+                        {career}
+                      </h2>
+                      <p class="mt-3 text-xs leading-body">{university}</p>
+                      <p class="mt-0.75 text-fine text-brand-gray">
+                        Cursando {year}
+                      </p>
+                    </div>
+                    <div class="profile-person flex items-center gap-3 border-t border-brand-mint pt-4">
+                      <picture class={avatarClass}>
                         <source srcset={webp} type="image/webp" />
                         <img
-                          class="block size-full object-cover"
+                          class={avatarClass}
                           src={png}
-                          alt={"Retrato de " + name}
-                          width="375"
-                          height="380"
+                          alt=""
+                          width="44"
+                          height="44"
                           loading="lazy"
                           decoding="async"
                           draggable="false"
                         />
                       </picture>
-                      <span
-                        class:list={[
-                          photoLabelClass,
-                          "absolute top-5 left-5 rounded-full px-3 py-1.5 text-xs font-medium",
-                        ]}
-                      >
-                        {name}
-                      </span>
-                      <div
-                        class:list={[
-                          photoLabelClass,
-                          "photo-career absolute right-4 bottom-16 left-4 flex items-center gap-2.5 rounded-profile-label p-3",
-                        ]}
-                      >
-                        <GraduationCap
-                          className="size-6 shrink-0"
-                          aria-hidden="true"
-                        />
-                        <div>
-                          <p class="text-xs leading-caption font-semibold">
-                            {career}
-                          </p>
-                          <span class="mt-0.75 block text-2xs leading-caption">
-                            {university}
-                          </span>
-                        </div>
+                      <div>
+                        <h3 class="text-sm font-semibold">{name}</h3>
+                        <p class="mt-0.75 text-fine text-brand-gray">{role}</p>
                       </div>
                     </div>
                   </div>
-                  <button
-                    class="flip-toggle absolute right-5 bottom-4.5 z-2 flex items-center gap-1.5 rounded-full border border-brand-border bg-white px-3 py-1.75 text-fine text-brand-petroleum transition-colors duration-250 hover:bg-brand-soft motion-reduce:transition-none"
-                    type="button"
-                    data-flip-toggle
-                    aria-label={"Ver foto de " + name}
-                    aria-pressed="false"
-                    aria-controls={"profile-photo-" + portrait}
-                    data-person-name={name}
+                  <div
+                    class:list={[faceClass, "card-back bg-brand-soft"]}
+                    data-card-back
+                    id={"profile-photo-" + portrait}
+                    aria-hidden="true"
+                    inert
                   >
-                    <RotateCw className="size-3.5" aria-hidden="true" />
-                    <span data-flip-label>Ver foto</span>
-                  </button>
-                </article>
-              </li>
-            );
-          },
-        )
-      }
+                    <picture class="block size-full">
+                      <source srcset={webp} type="image/webp" />
+                      <img
+                        class="block size-full object-cover"
+                        src={png}
+                        alt={"Retrato de " + name}
+                        width="375"
+                        height="380"
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                      />
+                    </picture>
+                    <span
+                      class:list={[
+                        photoLabelClass,
+                        "absolute top-5 left-5 rounded-full px-3 py-1.5 text-xs font-medium",
+                      ]}
+                    >
+                      {name}
+                    </span>
+                    <div
+                      class:list={[
+                        photoLabelClass,
+                        "photo-career absolute right-4 bottom-16 left-4 flex items-center gap-2.5 rounded-profile-label p-3",
+                      ]}
+                    >
+                      <GraduationCap
+                        className="size-6 shrink-0"
+                        aria-hidden="true"
+                      />
+                      <div>
+                        <p class="text-xs leading-caption font-semibold">
+                          {career}
+                        </p>
+                        <span class="mt-0.75 block text-2xs leading-caption">
+                          {university}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="flip-toggle absolute right-5 bottom-4.5 z-2 flex items-center gap-1.5 rounded-full border border-brand-border bg-white px-3 py-1.75 text-fine text-brand-petroleum transition-colors duration-250 hover:bg-brand-soft motion-reduce:transition-none"
+                  type="button"
+                  data-flip-toggle
+                  aria-label={"Ver foto de " + name}
+                  aria-pressed="false"
+                  aria-controls={"profile-photo-" + portrait}
+                  data-person-name={name}
+                >
+                  <RotateCw className="size-3.5" aria-hidden="true" />
+                  <span data-flip-label>Ver foto</span>
+                </button>
+              </article>
+            </li>
+          );
+        },
+      )}
     </ul>
   </div>
   <div class="flex items-center justify-center px-4 pt-2">
     <div
       class="profile-pagination flex items-center justify-center gap-0.5"
       data-carousel-pagination
-    >
-    </div>
+    ></div>
   </div>
 </div>
 

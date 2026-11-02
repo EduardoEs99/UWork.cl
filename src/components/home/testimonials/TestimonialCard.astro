@@ -10,31 +10,25 @@ const { name, role, image, quote } = Astro.props;
 const logo = imageUrl("png/brands/" + image + ".png");
 ---
 
-<article
-  class="w-xs rounded-xl bg-white p-5 md:w-md md:p-6 border border-brand-mint"
->
+<article class="w-xs rounded-xl bg-white p-5 md:w-md md:p-6 border border-brand-mint">
   <div class="flex items-center justify-between">
     <div class="flex items-center gap-3">
-      {
-        logo && (
-          <picture class="shrink-0">
-            <source
-              srcset={`${imageUrl(`webp/brands/${image}.small.webp`)} 300w, ${imageUrl(`webp/brands/${image}.webp`)} 600w`}
-              sizes="60px"
-              type="image/webp"
-            />
-            <img
-              class="size-15 object-contain rounded-full"
-              src={logo}
-              alt=""
-              width="65"
-              height="45"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-        )
-      }
+      <picture class="shrink-0">
+        <source
+          srcset={`${imageUrl(`webp/brands/${image}.small.webp`)} 300w, ${imageUrl(`webp/brands/${image}.webp`)} 600w`}
+          sizes="60px"
+          type="image/webp"
+        />
+        <img
+          class="size-15 object-contain rounded-full"
+          src={logo}
+          alt=""
+          width="65"
+          height="45"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
       <div>
         <h3 class="text-sm font-semibold text-brand-petroleum">{name}</h3>
         <p class="text-xs text-brand-gray">{role}</p>
@@ -50,10 +44,9 @@ const logo = imageUrl("png/brands/" + image + ".png");
       aria-hidden="true"
       class="lucide lucide-quote size-5 fill-brand-petroleum stroke-brand-petroleum"
       viewBox="0 0 24 24"
-      ><path
-        d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2zM5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"
-      ></path></svg
     >
+      <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2zM5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path>
+    </svg>
   </div>
 
   <blockquote class="mt-2 text-base leading-normal text-black">

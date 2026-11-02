@@ -45,7 +45,6 @@ if (track) {
       "--process-line-height",
       `${centers.at(-1) - centers[0]}px`,
     );
-    // Refresh the line after responsive text wrapping changes row heights.
     const current = Math.max(0, step);
     step = -1;
     select(current);
@@ -59,7 +58,6 @@ if (track) {
         next = index;
       }
     });
-    // The desktop inset leaves extra scroll after the introduction becomes sticky.
     select(next, window.scrollY + scrollAnchor() >= tops[0] - 1);
   };
   const schedule = () => {

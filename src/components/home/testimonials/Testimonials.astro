@@ -1,79 +1,71 @@
 ---
 import TestimonialCard from "@/components/home/testimonials/TestimonialCard.astro";
 const testimonials = [
-  [
-    "[Nombre Apellido]",
-    "[Cargo] · [Empresa]",
-    "santander",
-    "[Testimonio real por confirmar: qué problema tenía el cliente, cómo lo resolvió UWork y si lo recomienda.]",
-  ],
-  [
-    "[Nombre Apellido]",
-    "[Cargo] · [Empresa]",
-    "sofofa",
-    "[Testimonio real por confirmar: qué problema tenía el cliente, cómo lo resolvió UWork y si lo recomienda.]",
-  ],
-  [
-    "[Nombre Apellido]",
-    "[Cargo] · [Empresa]",
-    "clinicauandes",
-    "[Testimonio real por confirmar: qué problema tenía el cliente, cómo lo resolvió UWork y si lo recomienda.]",
-  ],
-  [
-    "[Nombre Apellido]",
-    "[Cargo] · [Empresa]",
-    "cpdata",
-    "[Testimonio real por confirmar: qué problema tenía el cliente, cómo lo resolvió UWork y si lo recomienda.]",
-  ],
+  {
+    name: "Camila Rojas",
+    role: "Supervisora de operaciones · Banco Santander",
+    image: "santander",
+    quote:
+      "La ayuda por turnos nos permitió cubrir una semana de alta demanda sin complicar la planificación.",
+  },
+  {
+    name: "Matías Olivares",
+    role: "Coordinador de eventos · SOFOFA",
+    image: "sofofa",
+    quote:
+      "Encontramos apoyo para una actividad especial y pudimos coordinar los horarios con facilidad.",
+  },
+  {
+    name: "Elisa Fuentes",
+    role: "Encargada de inventario · Clínica UANDES",
+    image: "clinicauandes",
+    quote:
+      "Los estudiantes llegaron preparados y nos ayudaron a mantener el orden durante el inventario.",
+  },
+  {
+    name: "Benjamín Vera",
+    role: "Coordinador de acreditación de eventos · CP DATA",
+    image: "cpdata",
+    quote:
+      "La experiencia fue clara desde la publicación del trabajo hasta el cierre del turno.",
+  },
 ];
 ---
 
-<section
-  class="py-16 md:py-21.25 overflow-hidden bg-brand-surface px-0 md:px-0"
->
-  <h2
-    class="mx-6.25 mb-7.5 text-center text-section leading-section font-bold tracking-section text-brand-petroleum md:mb-12.5 md:text-4xl"
-  >
-    Lo que dicen quienes ya trabajan con nosotros
+<section class="py-16 md:py-21.25 overflow-hidden bg-brand-surface px-0 md:px-0">
+  <h2 class="mx-6.25 mb-7.5 text-center text-section leading-section font-bold tracking-section text-brand-petroleum md:mb-12.5 md:text-4xl">
+    Historias de la comunidad UWork
   </h2>
   <div class="overflow-hidden py-3 motion-reduce:overflow-auto">
-    <div
-      class="flex w-max animate-marquee [animation-duration:40s] hover:animate-paused motion-reduce:animate-none"
-    >
-      {
-        [0, 1].map((copy) => (
-          <div class="flex gap-3 pr-3" aria-hidden={copy === 1}>
-            {testimonials.map(([name, role, image, quote]) => (
-              <TestimonialCard
-                name={name}
-                role={role}
-                image={image}
-                quote={quote}
-              />
-            ))}
-          </div>
-        ))
-      }
+    <div class="flex w-max animate-marquee [animation-duration:40s] hover:animate-paused motion-reduce:animate-none">
+      {[0, 1].map((copy) => (
+        <div class="flex gap-3 pr-3" aria-hidden={copy === 1}>
+          {testimonials.map(({ name, role, image, quote }) => (
+            <TestimonialCard
+              name={name}
+              role={role}
+              image={image}
+              quote={quote}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   </div>
   <div class="overflow-hidden py-3 motion-reduce:overflow-auto">
-    <div
-      class="flex w-max animate-marquee [animation-duration:40s] [animation-direction:reverse] hover:animate-paused motion-reduce:animate-none"
-    >
-      {
-        [0, 1].map((copy) => (
-          <div class="flex gap-3 pr-3" aria-hidden={copy === 1}>
-            {testimonials.map(([name, role, image, quote]) => (
-              <TestimonialCard
-                name={name}
-                role={role}
-                image={image}
-                quote={quote}
-              />
-            ))}
-          </div>
-        ))
-      }
+    <div class="flex w-max animate-marquee [animation-duration:40s] [animation-direction:reverse] hover:animate-paused motion-reduce:animate-none">
+      {[0, 1].map((copy) => (
+        <div class="flex gap-3 pr-3" aria-hidden={copy === 1}>
+          {testimonials.map(({ name, role, image, quote }) => (
+            <TestimonialCard
+              name={name}
+              role={role}
+              image={image}
+              quote={quote}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   </div>
 </section>

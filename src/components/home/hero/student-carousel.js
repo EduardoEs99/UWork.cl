@@ -7,7 +7,6 @@ import {
   Pagination,
 } from "swiper/modules";
 const TIMING = { move: 300, interval: 1500, resume: 500 };
-/** @param {HTMLElement} root */
 export default function mountStudentCarousel(root) {
   const viewport = root.querySelector("[data-student-swiper]");
   const cards = [...root.querySelectorAll("[data-student-card]")];
@@ -19,6 +18,8 @@ export default function mountStudentCarousel(root) {
   let keyboardFocus = false;
   let dragging = false;
   let centeringFromClick = false;
+  let tapCandidate = null;
+  let pendingTouchFlip = null;
   let visible = false;
   let playbackStarted = false;
   const isCentral = (card) =>
@@ -110,8 +111,15 @@ export default function mountStudentCarousel(root) {
       label.textContent = open ? "Ver datos" : "Ver foto";
     };
     flippers.set(card, flip);
-    listen(card, "pointerdown", () => {
-      if (!isCentral(card)) centeringFromClick = true;
+    listen(card, "pointerdown", (event) => {
+      const target = event.target;
+      tapCandidate =
+        event.pointerType === "touch" &&
+        !(target instanceof Element && target.closest("[data-flip-toggle]"))
+          ? card
+          : null;
+      if (event.pointerType === "mouse" && !isCentral(card))
+        centeringFromClick = true;
     });
     listen(card, "pointerenter", (event) => {
       if (event.pointerType !== "mouse") return;
@@ -126,6 +134,21 @@ export default function mountStudentCarousel(root) {
     listen(toggle, "click", () => {
       if (!swiper.allowClick) return;
       flip(card.dataset.flipped !== "true");
+    });
+    listen(card, "click", (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("[data-flip-toggle]")) {
+        tapCandidate = null;
+        return;
+      }
+      if (tapCandidate !== card) return;
+      tapCandidate = null;
+      if (!swiper.allowClick) {
+        pendingTouchFlip = null;
+        return;
+      }
+      if (isCentral(card)) flip(card.dataset.flipped !== "true");
+      else pendingTouchFlip = card;
     });
     listen(card, "keydown", (event) => {
       if (event.key === "Escape") flip(false);
@@ -158,11 +181,17 @@ export default function mountStudentCarousel(root) {
     if (hoveredCard && center && !dragging) flippers.get(center)(true);
   };
   swiper.on("slideChangeTransitionEnd", () => {
+    if (pendingTouchFlip && isCentral(pendingTouchFlip) && !dragging) {
+      flippers.get(pendingTouchFlip)(true);
+      pendingTouchFlip = null;
+    }
     flipHoveredCenter();
     syncPlayback();
   });
   swiper.on("sliderFirstMove", () => {
     dragging = true;
+    tapCandidate = null;
+    pendingTouchFlip = null;
     flippers.forEach((flip) => flip(false));
     syncPlayback();
   });

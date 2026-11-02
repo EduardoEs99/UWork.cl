@@ -1,6 +1,7 @@
 ---
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Check, LoaderCircle, Send } from "lucide-react";
 const referralOptions = [
   "Recomendación",
   "Instagram",
@@ -10,7 +11,11 @@ const referralOptions = [
 ];
 ---
 
-<form class="mx-auto mt-8.75 max-w-205 text-left" data-contact-form>
+<form
+  class="mx-auto mt-8.75 max-w-205 text-left"
+  data-contact-form
+  data-state="idle"
+>
   <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2 md:gap-4.5">
     <label>
       <span class="sr-only">Nombre</span>
@@ -83,15 +88,32 @@ const referralOptions = [
       </label>
     ))}
   </fieldset>
-  <Button type="submit" className="mx-auto flex min-w-60">
-    Enviar solicitud
+  <Button
+    type="submit"
+    className="mx-auto flex min-w-60 disabled:opacity-100"
+    data-contact-submit
+  >
+    <span data-contact-label>Enviar solicitud</span>
+    <Send className="size-4" aria-hidden="true" data-contact-send />
+    <LoaderCircle
+      className="hidden size-4 animate-spin"
+      aria-hidden="true"
+      data-contact-spinner
+    />
   </Button>
-  <p class="my-3 text-center text-fine text-brand-gray">
-    Formulario de demostración local. Sin envío de datos.
-  </p>
+  <div
+    class="mx-auto mt-4 flex size-0 items-center justify-center overflow-hidden rounded-full bg-brand-mint text-brand-petroleum opacity-0 transition-all duration-500 data-[visible=true]:size-10 data-[visible=true]:opacity-100 motion-reduce:transition-none"
+    data-contact-feedback
+    data-visible="false"
+    aria-hidden="true"
+  >
+    <Check className="size-5" />
+  </div>
   <p
-    class="mt-3 text-center text-caption text-brand-petroleum"
+    class="mt-3 min-h-5 text-center text-caption text-brand-petroleum"
     role="status"
+    aria-live="polite"
+    data-contact-status
   ></p>
 </form>
 

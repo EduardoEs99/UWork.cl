@@ -1,0 +1,136 @@
+---
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Check, Eye, EyeOff, Mail } from "lucide-react";
+import { image as imageUrl } from "@/lib/assets";
+import { routes } from "@/lib/routes";
+import AuthLayout from "@/layouts/AuthLayout.astro";
+import "@/styles/login.css";
+
+const homeUrl = routes.home;
+const registerUrl = routes.register;
+---
+
+<AuthLayout title="Iniciar sesión" description="Ingresa a tu cuenta UWork.">
+  <section class="px-4 py-6 sm:px-6 md:px-8 md:py-8">
+    <div class="mx-auto grid max-w-6xl overflow-hidden rounded-section shadow-brand-header md:min-h-152 md:grid-cols-2">
+      <aside class="relative flex min-h-64 flex-col justify-between overflow-hidden bg-linear-to-br from-brand-petroleum via-brand-petroleum to-brand-hover p-7 text-white sm:p-10 md:min-h-152 md:p-12">
+        <a href={homeUrl} aria-label="UWork inicio" class="relative z-10 w-fit">
+          <img
+            class="w-32"
+            src={imageUrl("logos/logo-light.svg")}
+            alt="UWork"
+            width="120"
+            height="40"
+          />
+        </a>
+        <div class="relative z-10 mt-10 max-w-md">
+          <p class="text-xs font-medium tracking-kicker text-brand-mint">
+            TALENTO UNIVERSITARIO
+          </p>
+          <h2 class="mt-3 text-2xl leading-tight font-bold sm:text-3xl">
+            Conectamos estudiantes de educación superior con trabajos a su
+            medida.
+          </h2>
+        </div>
+        <div
+          aria-hidden="true"
+          class="absolute -right-24 -bottom-28 size-80 rounded-full border border-white/15"
+        ></div>
+        <div
+          aria-hidden="true"
+          class="absolute -right-12 -bottom-16 size-56 rounded-full border border-white/20"
+        ></div>
+      </aside>
+
+      <div class="flex flex-col justify-center bg-white px-6 py-9 sm:px-10 md:px-14 md:py-12">
+        <a
+          href={registerUrl}
+          class="mb-8 block rounded-field border border-brand-border bg-brand-surface px-4 py-4 text-center text-xs leading-relaxed text-brand-gray transition-colors hover:bg-brand-soft"
+        >
+          ¿Aún no tienes una cuenta?{" "}
+          <span class="font-semibold text-brand-petroleum">
+            Regístrate como estudiante
+          </span>
+        </a>
+        <h1 class="text-center text-3xl font-bold text-brand-petroleum">
+          Iniciar sesión
+        </h1>
+        <p class="text-center text-sm leading-relaxed text-brand-gray">
+          Ingresa tu correo y contraseña.
+        </p>
+
+        <form
+          class="mx-auto mt-2 grid w-full max-w-md gap-4"
+          data-login-form
+          data-state="idle"
+        >
+          <div class="relative mx-auto flex size-16 items-center justify-center rounded-full bg-brand-surface text-brand-petroleum">
+            <Mail
+              className="login-envelope size-8"
+              strokeWidth={1.7}
+              aria-hidden="true"
+            />
+            <Check
+              className="login-check absolute size-8 text-brand-petroleum opacity-0 scale-50"
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+          </div>
+          <label class="grid gap-2 text-xs font-medium text-brand-petroleum">
+            Correo electrónico
+            <Input
+              name="email"
+              type="email"
+              placeholder="nombre@correo.com"
+              autoComplete="email"
+              required
+            />
+          </label>
+          <div class="grid gap-2 text-xs font-medium text-brand-petroleum">
+            <label for="login-password">Contraseña</label>
+            <div class="relative">
+              <Input
+                id="login-password"
+                name="password"
+                type="password"
+                placeholder="Tu contraseña"
+                autoComplete="current-password"
+                className="pr-12"
+                data-login-password
+                required
+              />
+              <button
+                type="button"
+                class="absolute inset-y-0 right-0 flex w-12 items-center justify-center rounded-r-field text-brand-gray hover:text-brand-petroleum"
+                aria-label="Mostrar contraseña"
+                aria-pressed="false"
+                data-password-toggle
+              >
+                <Eye className="size-5" aria-hidden="true" data-password-show />
+                <EyeOff
+                  className="hidden size-5"
+                  aria-hidden="true"
+                  data-password-hide
+                />
+              </button>
+            </div>
+          </div>
+          <Button type="submit" className="w-full mt-2" data-login-submit>
+            Iniciar sesión
+          </Button>
+          <p
+            class="min-h-5 text-center text-xs text-brand-petroleum"
+            role="status"
+            aria-live="polite"
+            data-login-status
+          ></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</AuthLayout>
+
+<script>
+  import "@/components/auth/login.js";
+</script>

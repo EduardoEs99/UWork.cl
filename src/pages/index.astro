@@ -8,27 +8,45 @@ import Process from "@/components/home/process/Process.astro";
 import Services from "@/components/home/services/Services.astro";
 import Testimonials from "@/components/home/testimonials/Testimonials.astro";
 const metrics = [
-  { value: "[+X]", label: "trabajos realizados" },
-  { value: "[+X]", label: "estudiantes registrados" },
-  { value: "[+X]", label: "instituciones de educación superior" },
-  { value: "[X,X ★]", label: "evaluación promedio de nuestros estudiantes" },
+  {
+    value: "320+",
+    count: 320,
+    suffix: "+",
+    decimals: 0,
+    label: "trabajos realizados",
+  },
+  {
+    value: "2.480+",
+    count: 2480,
+    suffix: "+",
+    decimals: 0,
+    label: "estudiantes registrados",
+  },
+  {
+    value: "34",
+    count: 34,
+    suffix: "",
+    decimals: 0,
+    label: "instituciones de educación superior",
+  },
+  {
+    value: "4,9 ★",
+    count: 4.9,
+    suffix: " ★",
+    decimals: 1,
+    label: "evaluación promedio de nuestros estudiantes",
+  },
 ];
 ---
 
 <MainLayout>
   <section id="inicio" class="px-4 pt-4 pb-12 md:px-8 md:pb-16">
-    <div
-      class="relative mx-auto max-w-6xl rounded-panel bg-brand-surface pb-14 pt-12 text-center md:rounded-section md:pt-16"
-    >
+    <div class="relative mx-auto max-w-6xl rounded-panel bg-brand-surface pb-14 pt-12 text-center md:rounded-section md:pt-16">
       <div class="mx-auto max-w-247.5 px-4 md:px-8.75">
-        <p
-          class="text-xs leading-normal tracking-label md:text-sm md:tracking-kicker"
-        >
+        <p class="text-xs leading-normal tracking-label md:text-sm md:tracking-kicker">
           TRABAJOS ESPORÁDICOS · TURNOS POR HORA · PROYECTOS CORTOS
         </p>
-        <h1
-          class="mx-auto mt-4 mb-6 max-w-4xl text-3xl leading-heading font-bold text-brand-petroleum md:mt-4.5 md:text-4xl md:leading-none"
-        >
+        <h1 class="mx-auto mt-4 mb-6 max-w-4xl text-3xl leading-heading font-bold text-brand-petroleum md:mt-4.5 md:text-4xl md:leading-none">
           Tecnología que activa el talento universitario en minutos
         </h1>
         <p class="mx-auto max-w-190 text-body leading-relaxed md:text-lg">
@@ -39,9 +57,7 @@ const metrics = [
         </p>
         <StudentCarousel />
       </div>
-      <div
-        class="mt-8 flex flex-col justify-center gap-3.75 md:flex-row md:gap-4.5"
-      >
+      <div class="mt-8 flex flex-col justify-center gap-3.75 md:flex-row md:gap-4.5">
         <Button variant="secondary" nativeNavigation href="#company-needs">
           Conoce nuestros servicios
         </Button>
@@ -66,21 +82,27 @@ const metrics = [
     >
       UWork en números
     </h2>
-    <dl
-      class="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-4"
-    >
-      {
-        metrics.map(({ value, label }) => (
-          <div class="flex min-w-0 flex-col items-center gap-4 px-2 py-4">
-            <dt class="order-2 max-w-56 text-sm leading-relaxed text-pretty text-brand-gray">
-              {label}
-            </dt>
-            <dd class="order-1 text-4xl leading-none font-bold whitespace-nowrap text-brand-petroleum tabular-nums sm:text-5xl">
+    <dl class="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
+      {metrics.map(({ value, count, suffix, decimals, label }) => (
+        <div class="flex min-w-0 flex-col items-center gap-4 px-2 py-4">
+          <dt class="order-2 max-w-56 text-sm leading-relaxed text-pretty text-brand-gray">
+            {label}
+          </dt>
+          <dd class="order-1 text-4xl leading-none font-bold whitespace-nowrap text-brand-petroleum tabular-nums sm:text-5xl">
+            <button
+              type="button"
+              class="inline-block rounded"
+              data-metric-button
+              data-count-target={count}
+              data-count-suffix={suffix}
+              data-count-decimals={decimals}
+              aria-label={"Animar " + label}
+            >
               {value}
-            </dd>
-          </div>
-        ))
-      }
+            </button>
+          </dd>
+        </div>
+      ))}
     </dl>
   </section>
   <Testimonials />
@@ -101,3 +123,68 @@ const metrics = [
     <ContactForm />
   </section>
 </MainLayout>
+
+<script>
+  const metricButtons = [
+    ...document.querySelectorAll<HTMLButtonElement>("[data-metric-button]"),
+  ];
+  metricButtons.forEach((button) => {
+    const target = Number(button.dataset.countTarget);
+    const suffix = button.dataset.countSuffix ?? "";
+    const decimals = Number(button.dataset.countDecimals ?? 0);
+    const formatter = new Intl.NumberFormat("es-CL", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+    const formatCount = (value: number) =>
+      `${formatter.format(value)}${suffix}`;
+    let isCounting = false;
+    let animationFrame: number | undefined;
+
+    const animateCount = () => {
+      if (isCounting) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        button.textContent = formatCount(target);
+        return;
+      }
+
+      isCounting = true;
+      const startTime = performance.now();
+      const duration = 2800;
+      button.textContent = formatCount(0);
+
+      const updateCount = (currentTime: number) => {
+        const progress = Math.min(
+          Math.max((currentTime - startTime) / duration, 0),
+          1,
+        );
+        button.textContent = formatCount(target * progress);
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(updateCount);
+        } else {
+          button.textContent = formatCount(target);
+          isCounting = false;
+          animationFrame = undefined;
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(updateCount);
+    };
+
+    button.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "touch") animateCount();
+    });
+    button.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "touch") return;
+      if (animationFrame !== undefined) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = undefined;
+      }
+      isCounting = false;
+      button.textContent = formatCount(target);
+    });
+    button.addEventListener("click", animateCount);
+  });
+</script>

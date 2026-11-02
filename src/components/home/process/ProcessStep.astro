@@ -29,25 +29,17 @@ const [label, title, description, detail] = steps[step];
     <h3 class="text-base font-semibold tracking-wide text-brand-petroleum">
       {label === "VOY EN CAMINO" ? "“VOY EN CAMINO”" : label}
     </h3>
-    {
-      title && (
-        <p class="mt-1 text-lg leading-snug font-medium text-brand-petroleum">
-          {title}
-        </p>
-      )
-    }
-    {
-      description && (
-        <p class="mt-2 text-sm leading-relaxed text-brand-gray">
-          {description}
-        </p>
-      )
-    }
-    {
-      detail && (
-        <p class="mt-2 text-sm font-medium text-brand-petroleum">{detail}</p>
-      )
-    }
+    {title && (
+      <p class="mt-1 text-lg leading-snug font-medium text-brand-petroleum">
+        {title}
+      </p>
+    )}
+    {description && (
+      <p class="mt-2 text-sm leading-relaxed text-brand-gray">{description}</p>
+    )}
+    {detail && (
+      <p class="mt-2 text-sm font-medium text-brand-petroleum">{detail}</p>
+    )}
   </div>
 </li>
 
