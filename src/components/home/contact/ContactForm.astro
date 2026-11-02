@@ -1,0 +1,100 @@
+---
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+const referralOptions = [
+  "Recomendación",
+  "Instagram",
+  "WhatsApp",
+  "Mi universidad o instituto",
+  "Otro",
+];
+---
+
+<form class="mx-auto mt-8.75 max-w-205 text-left" data-contact-form>
+  <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2 md:gap-4.5">
+    <label>
+      <span class="sr-only">Nombre</span>
+      <Input name="nombre" placeholder="Nombre" autoComplete="name" required />
+    </label>
+    <label>
+      <span class="sr-only">Empresa (opcional)</span>
+      <Input
+        name="empresa"
+        placeholder="Empresa (opcional)"
+        autoComplete="organization"
+      />
+    </label>
+    <label>
+      <span class="sr-only">Teléfono / WhatsApp</span>
+      <Input
+        name="telefono"
+        type="tel"
+        placeholder="Teléfono / WhatsApp"
+        autoComplete="tel"
+        pattern="[+0-9\(\)\- ]{8,18}"
+        required
+      />
+    </label>
+    <label>
+      <span class="sr-only">Correo electrónico</span>
+      <Input
+        name="email"
+        type="email"
+        placeholder="Correo electrónico"
+        autoComplete="email"
+        required
+      />
+    </label>
+  </div>
+  <label class="mt-4.5 block">
+    <span class="sr-only">¿Cómo nos conociste?</span>
+    <select
+      name="origen"
+      aria-label="¿Cómo nos conociste?"
+      class="w-full rounded-field border border-brand-border bg-white p-3.75 text-xs text-brand-gray outline-brand-focus md:px-4.5 md:py-4 md:text-caption"
+      required
+    >
+      <option value="" disabled selected>
+        ¿Cómo nos conociste? Selecciona una alternativa…
+      </option>
+      {referralOptions.map((option) => (
+        <option>{option}</option>
+      ))}
+    </select>
+  </label>
+  <fieldset class="my-6.25 flex flex-wrap gap-3.75 border-0 p-0 md:gap-6.25">
+    <legend class="mb-4 text-caption leading-relaxed text-brand-gray">
+      ¿Qué buscas? Selecciona una o más opciones.
+    </legend>
+    {[
+      "Trabajo puntual",
+      "Turnos recurrentes",
+      "Tarea para mi hogar",
+      "Otro",
+    ].map((service) => (
+      <label class="flex items-center gap-2 text-xs md:text-caption">
+        <input
+          class="size-4.25 accent-brand-orange"
+          type="checkbox"
+          name="servicio"
+          value={service}
+        />
+        {service}
+      </label>
+    ))}
+  </fieldset>
+  <Button type="submit" className="mx-auto flex min-w-60">
+    Enviar solicitud
+  </Button>
+  <p class="my-3 text-center text-fine text-brand-gray">
+    Formulario de demostración local. Sin envío de datos.
+  </p>
+  <p
+    class="mt-3 text-center text-caption text-brand-petroleum"
+    role="status"
+  ></p>
+</form>
+
+<script>
+  import "./contact-form.js";
+</script>

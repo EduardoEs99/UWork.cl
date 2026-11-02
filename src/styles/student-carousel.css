@@ -1,0 +1,97 @@
+@layer theme, base, components, utilities;
+
+@import "swiper/css" layer(components);
+@import "swiper/css/effect-coverflow" layer(components);
+@import "swiper/css/pagination" layer(components);
+@import "swiper/css/a11y" layer(components);
+
+.student-carousel {
+  --swiper-pagination-color: var(--color-brand-petroleum);
+  --swiper-pagination-bullet-size: 7px;
+  --swiper-pagination-bullet-inactive-color: var(--color-brand-petroleum);
+  --swiper-pagination-bullet-inactive-opacity: 0.2;
+}
+.student-carousel .student-swiper:not(.swiper-initialized) {
+  visibility: hidden;
+  overflow: hidden;
+}
+/* Perspective must not reveal cards that Swiper places outside the viewport. */
+.student-carousel .swiper-initialized .swiper-slide:not(.swiper-slide-visible) {
+  visibility: hidden;
+}
+.student-carousel .swiper-wrapper {
+  pointer-events: none;
+}
+.student-carousel .swiper-slide {
+  pointer-events: auto;
+}
+.student-carousel .swiper-slide:not(.swiper-slide-active) {
+  cursor: pointer;
+}
+.student-carousel .profile-pagination.swiper-pagination-horizontal {
+  width: auto;
+}
+.student-carousel .profile-pagination .swiper-pagination-bullet {
+  transition:
+    opacity 200ms,
+    transform 200ms;
+}
+.student-carousel .profile-pagination .swiper-pagination-bullet-active {
+  transform: scale(1.2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-carousel .profile-pagination .swiper-pagination-bullet {
+    transition: none;
+  }
+}
+
+.student-carousel .student-card {
+  perspective: none;
+}
+.student-carousel .swiper-slide-active .student-card {
+  perspective: 1200px;
+}
+.student-carousel .flip-inner {
+  transform-style: flat;
+  pointer-events: none;
+  transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.student-carousel .swiper-slide-active .flip-inner {
+  transform-style: preserve-3d;
+}
+.student-carousel
+  .swiper-slide-active
+  .student-card[data-flipped="true"]
+  .flip-inner {
+  transform: rotateY(180deg);
+}
+.student-carousel .card-face {
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.1),
+    0 4px 6px -1px rgb(0 0 0 / 0.1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.student-carousel .card-back {
+  transform: rotateY(180deg) translateZ(0.5px);
+}
+.student-carousel .swiper-slide-active .card-front {
+  transform: translateZ(0.5px);
+}
+/* Static side cards do not need composited front/back layers. */
+.student-carousel .swiper-slide:not(.swiper-slide-active) .card-front {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
+.student-carousel .swiper-slide:not(.swiper-slide-active) .card-back {
+  visibility: hidden;
+}
+.student-carousel .swiper-slide:not(.swiper-slide-active) .flip-toggle {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-carousel .flip-inner {
+    transition: none;
+  }
+}
+

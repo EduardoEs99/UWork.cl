@@ -1,0 +1,129 @@
+---
+import { image as imageUrl } from "@/lib/assets";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const homeUrl = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const studentsUrl = homeUrl + "estudiantes/";
+const currentPath = Astro.url.pathname.replace(/\/+$/, "");
+const isHome = currentPath === homeUrl.replace(/\/+$/, "");
+const activeNav =
+  currentPath === studentsUrl.replace(/\/+$/, "") ? "estudiante" : undefined;
+const homeSection = (id: string) => (isHome ? "#" + id : homeUrl + "#" + id);
+const navItems = [
+  { id: "empresa", label: "Soy Empresa", href: homeSection("empresas") },
+  { id: "persona", label: "Soy Persona", href: homeSection("personas") },
+  { id: "estudiante", label: "Soy Estudiante", href: studentsUrl },
+  {
+    id: "como-funciona",
+    label: "¿Cómo funciona?",
+    href: homeSection("como-funciona"),
+  },
+];
+---
+
+<header class="site-header group sticky top-0 z-50 h-16" data-scrolled="false">
+  <div
+    class="header-bar relative mx-auto grid h-full w-full grid-cols-3 items-center gap-3 border-b border-transparent bg-transparent px-4 group-data-[scrolled=true]:border-brand-border group-data-[scrolled=true]:bg-brand-header group-data-[scrolled=true]:shadow-xs lg:gap-6 lg:px-40"
+  >
+    <a
+      class="col-start-2 row-start-1 justify-self-center"
+      href={isHome ? "#inicio" : homeUrl}
+      aria-label="UWork inicio"
+    >
+      <img
+        class="w-24 lg:w-27.5"
+        src={imageUrl("logos/logo.svg")}
+        alt="UWork"
+        width="120"
+        height="40"
+      />
+    </a>
+    <nav
+      class="col-start-1 row-start-1 hidden items-center gap-3 text-xs whitespace-nowrap lg:flex xl:gap-5 xl:text-sm"
+      aria-label="Principal"
+    >
+      {
+        navItems.map(({ id, label, href }) => (
+          <a
+            href={href}
+            aria-current={activeNav === id ? "page" : undefined}
+            class="nav-link py-1"
+            data-nav-label={label}
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+    <div
+      class="col-start-3 row-start-1 hidden items-center justify-self-end gap-3 text-sm whitespace-nowrap lg:flex xl:gap-5"
+    >
+      <a class="nav-link py-1" href="#"> Sobre nosotros </a>
+      <a
+        class="rounded-full bg-brand-orange/50 px-5 py-2.5 font-medium text-xs text-brand-petroleum transition-colors hover:bg-brand-orange/75 duration-300 ease-in-out"
+        href="#"
+      >
+        Iniciar sesión
+      </a>
+      <Button
+        className="min-h-9 px-5 py-2 text-xs"
+        href={homeSection("business-contact")}
+      >
+        Agenda una reunión
+      </Button>
+
+      <button
+        class="col-start-1 row-start-1 justify-self-start bg-transparent p-1.5 text-brand-petroleum lg:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+        data-menu-toggle
+      >
+        <span data-menu-open>
+          <Menu />
+        </span>
+        <span data-menu-close hidden>
+          <X />
+        </span>
+      </button>
+
+      <nav
+        id="mobile-navigation"
+        hidden
+        class="absolute inset-x-0 top-full grid gap-4.5 bg-brand-header p-5 text-sm shadow-brand-menu lg:hidden"
+        aria-label="Navegación móvil"
+      >
+        {
+          navItems.map(({ id, label, href }) => (
+            <a
+              href={href}
+              aria-current={activeNav === id ? "page" : undefined}
+              class="nav-link w-fit py-1"
+              data-nav-label={label}
+            >
+              {label}
+            </a>
+          ))
+        }
+        <a
+          href="#"
+          class="rounded-full bg-brand-orange/50 px-5 py-2.5 font-medium text-xs text-brand-petroleum transition-colors hover:bg-brand-orange/75 duration-300 ease-in-out text-center"
+          data-nav-label="Iniciar sesión"
+        >
+          Iniciar sesión
+        </a>
+        <Button
+          href={homeSection("business-contact")}
+          className="min-h-9 px-5 py-2 text-xs"
+        >
+          Agenda una reunión
+        </Button>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    import "./header.js";
+  </script>
+</header>

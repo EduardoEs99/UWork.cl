@@ -1,0 +1,278 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Button } from "@/components/ui/button";
+import {
+  Calendar,
+  Wallet,
+  GraduationCap,
+  MapPin,
+  Check,
+  ArrowRight,
+} from "lucide-react";
+
+const benefits = [
+  {
+    icon: Calendar,
+    title: "Tú decides cuándo",
+    text: "Encuentra turnos que calcen con tus clases y tu disponibilidad.",
+  },
+  {
+    icon: Wallet,
+    title: "Pagos claros",
+    text: "Conoce cuánto vas a ganar antes de aceptar un trabajo.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Experiencia real",
+    text: "Suma trabajos, habilidades y evaluaciones a tu experiencia laboral.",
+  },
+  {
+    icon: MapPin,
+    title: "Cerca de ti",
+    text: "Busca oportunidades en tu comuna o tareas que puedas hacer de forma remota.",
+  },
+];
+const steps = [
+  {
+    title: "Prepara tu perfil",
+    text: "Reúne tus antecedentes, tu carrera, tus habilidades y los horarios en que puedes trabajar.",
+  },
+  {
+    title: "Elige lo que te acomoda",
+    text: "Revisa las tareas, el lugar y el pago. Tú decides qué oportunidades aceptar.",
+  },
+  {
+    title: "Suma experiencia",
+    text: "Aplica lo que sabes, conoce distintos equipos y desarrolla nuevas habilidades.",
+  },
+];
+const questions = [
+  {
+    title: "¿Tengo que ser estudiante universitario?",
+    text: "UWork está pensado para estudiantes de educación superior: universidades, institutos profesionales y centros de formación técnica.",
+  },
+  {
+    title: "¿Qué documentos debo preparar?",
+    text: "Tu documento de identidad, un certificado de alumno regular y un certificado de antecedentes.",
+  },
+  {
+    title: "¿Tengo que aceptar todos los trabajos?",
+    text: "No. Tú decides qué trabajos aceptar según tus clases, tu disponibilidad y tus intereses.",
+  },
+];
+---
+
+<MainLayout
+  title="Soy Estudiante"
+  description="Conoce cómo UWork conecta a estudiantes de educación superior con trabajos que se adaptan a sus horarios."
+>
+  <section id="inicio" class="px-4 pt-7 pb-12 md:px-8 md:pb-16">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 rounded-section bg-brand-surface px-6 py-12 md:grid-cols-2 md:gap-12 md:px-12 md:py-16">
+      <div>
+        <p class="text-xs tracking-kicker text-brand-gray md:text-sm">
+          SOY ESTUDIANTE
+        </p>
+        <h1 class="mt-4 max-w-xl text-4xl leading-hero font-bold tracking-tight text-brand-petroleum md:text-5xl">
+          Gana plata sin dejar de estudiar
+        </h1>
+        <p class="mt-6 max-w-xl text-base leading-relaxed md:text-lg">
+          Si estudias en una universidad, instituto o CFT, encuentra
+          oportunidades que se adapten a tus horarios y empieza a sumar
+          experiencia.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <Button nativeNavigation href="#beneficios-estudiantes">
+            Conoce los beneficios
+          </Button>
+          <a
+            data-astro-reload=""
+            href="#como-empezar"
+            class="inline-flex items-center gap-2 py-3 text-sm font-medium text-brand-petroleum transition-colors duration-300 hover:text-brand-focus"
+          >
+            ¿Cómo funciona? <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-sm rounded-panel border border-brand-border bg-white p-7 shadow-brand-header md:rotate-2 md:p-9">
+        <div class="mb-6 inline-flex size-14 items-center justify-center rounded-2xl bg-brand-mint text-brand-petroleum">
+          <GraduationCap className="size-8" aria-hidden="true" />
+        </div>
+        <p class="text-xs tracking-widest text-brand-gray">
+          ESTUDIAR + TRABAJAR
+        </p>
+        <h2 class="mt-3 text-2xl leading-tight font-bold text-brand-petroleum">
+          Tu tiempo,
+          <br />
+          tus decisiones.
+        </h2>
+        <ul class="mt-7 space-y-5 text-sm">
+          {[
+            "Tus clases siguen primero",
+            "Elige según tu disponibilidad",
+            "Cada trabajo suma experiencia",
+          ].map((text) => (
+            <li class="flex items-start gap-3">
+              <Check
+                className="size-5 shrink-0 text-brand-petroleum"
+                aria-hidden="true"
+              />
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+        <div
+          class="mt-8 h-1.5 w-16 rounded-full bg-brand-orange"
+          aria-hidden="true"
+        ></div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    data-center-anchor
+    id="beneficios-estudiantes"
+    aria-labelledby="benefits-title"
+    class="mx-auto max-w-6xl px-6 py-12 md:py-16"
+  >
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="mb-3 text-sm">Trabajo que se adapta a ti</p>
+      <h2
+        id="benefits-title"
+        class="text-3xl leading-tight font-bold tracking-tight text-brand-petroleum md:text-4xl"
+      >
+        Más oportunidades, a tu ritmo
+      </h2>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {benefits.map(({ icon: Icon, title, text }) => (
+        <article class="rounded-3xl bg-brand-surface p-6">
+          <Icon className="mb-5 size-7 text-brand-orange" aria-hidden="true" />
+          <h3 class="text-lg font-semibold text-brand-petroleum">{title}</h3>
+          <p class="mt-3 text-sm leading-relaxed">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section
+    data-center-anchor
+    id="como-empezar"
+    aria-labelledby="steps-title"
+    class="mx-auto max-w-6xl px-6 py-12 md:py-16"
+  >
+    <h2
+      id="steps-title"
+      class="text-center text-3xl leading-tight font-bold tracking-tight text-brand-petroleum md:text-4xl"
+    >
+      De tus tiempos libres a tu próxima experiencia
+    </h2>
+    <ol class="mt-10 grid gap-8 md:grid-cols-3 md:gap-12">
+      {steps.map(({ title, text }, index) => (
+        <li>
+          <span class="mb-5 inline-flex size-11 items-center justify-center rounded-full bg-brand-mint text-lg font-semibold text-brand-petroleum">
+            {index + 1}
+          </span>
+          <h3 class="text-lg font-semibold text-brand-petroleum">{title}</h3>
+          <p class="mt-3 text-sm leading-relaxed">{text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section
+    aria-labelledby="community-title"
+    class="mx-auto max-w-6xl px-6 py-12 md:py-16"
+  >
+    <div class="rounded-section bg-brand-surface px-6 py-10 md:px-12">
+      <h2
+        id="community-title"
+        class="text-center text-3xl leading-tight font-bold text-brand-petroleum"
+      >
+        Una comunidad de talento estudiantil
+      </h2>
+      <dl class="mx-auto mt-9 grid max-w-2xl gap-8 text-center sm:grid-cols-2">
+        <div>
+          <dt class="text-sm">Estudiantes</dt>
+          <dd class="mt-2 text-4xl font-bold text-brand-petroleum">25.000</dd>
+        </div>
+        <div>
+          <dt class="text-sm">Instituciones de educación superior</dt>
+          <dd class="mt-2 text-4xl font-bold text-brand-petroleum">26</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section
+    data-center-anchor
+    id="historias-estudiantes"
+    aria-labelledby="stories-title"
+    class="mx-auto max-w-4xl px-6 py-12 text-center md:py-16"
+  >
+    <h2
+      id="stories-title"
+      class="text-3xl leading-tight font-bold tracking-tight text-brand-petroleum md:text-4xl"
+    >
+      Experiencias que queremos compartir
+    </h2>
+    <div class="mt-8 rounded-3xl border border-dashed border-brand-border p-8 md:p-10">
+      <GraduationCap
+        className="mx-auto mb-4 size-8 text-brand-orange"
+        aria-hidden="true"
+      />
+      <p class="font-semibold text-brand-petroleum">
+        Aquí irán las historias de nuestros estudiantes
+      </p>
+      <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed">
+        Espacio de la propuesta reservado para testimonios reales. Contenido
+        pendiente de confirmar.
+      </p>
+    </div>
+  </section>
+
+  <section
+    data-center-anchor
+    id="preguntas-estudiantes"
+    aria-labelledby="faq-title"
+    class="mx-auto max-w-3xl px-6 py-12 md:py-16"
+  >
+    <h2
+      id="faq-title"
+      class="mb-8 text-center text-3xl font-bold text-brand-petroleum md:text-4xl"
+    >
+      Antes de empezar
+    </h2>
+    <div class="divide-y divide-brand-border border-y border-brand-border">
+      {questions.map(({ title, text }) => (
+        <details class="group py-5">
+          <summary class="cursor-pointer text-base font-semibold text-brand-petroleum">
+            {title}
+          </summary>
+          <p class="mt-4 text-sm leading-relaxed">{text}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="register-title" class="px-4 py-12 md:px-8 md:pb-20">
+    <div class="mx-auto max-w-6xl rounded-section bg-brand-surface px-6 py-12 text-center md:py-16">
+      <h2
+        id="register-title"
+        class="text-3xl font-bold text-brand-petroleum md:text-4xl"
+      >
+        Tu próximo paso empieza contigo
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed">
+        Estudia, trabaja y suma experiencia a tu ritmo.
+      </p>
+      <div class="mt-7">
+        <Button type="button" disabled aria-describedby="registration-status">
+          Regístrate como estudiante
+        </Button>
+      </div>
+      <p id="registration-status" class="mt-4 text-sm">
+        Registro pendiente. Todavía no está disponible en esta propuesta.
+      </p>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,103 @@
+---
+import StudentCarousel from "@/components/home/hero/StudentCarousel.astro";
+import ContactForm from "@/components/home/contact/ContactForm.astro";
+import { Button } from "@/components/ui/button";
+import MainLayout from "@/layouts/MainLayout.astro";
+import Brands from "@/components/home/brands/Brands.astro";
+import Process from "@/components/home/process/Process.astro";
+import Services from "@/components/home/services/Services.astro";
+import Testimonials from "@/components/home/testimonials/Testimonials.astro";
+const metrics = [
+  { value: "[+X]", label: "trabajos realizados" },
+  { value: "[+X]", label: "estudiantes registrados" },
+  { value: "[+X]", label: "instituciones de educación superior" },
+  { value: "[X,X ★]", label: "evaluación promedio de nuestros estudiantes" },
+];
+---
+
+<MainLayout>
+  <section id="inicio" class="px-4 pt-4 pb-12 md:px-8 md:pb-16">
+    <div
+      class="relative mx-auto max-w-6xl rounded-panel bg-brand-surface pb-14 pt-12 text-center md:rounded-section md:pt-16"
+    >
+      <div class="mx-auto max-w-247.5 px-4 md:px-8.75">
+        <p
+          class="text-xs leading-normal tracking-label md:text-sm md:tracking-kicker"
+        >
+          TRABAJOS ESPORÁDICOS · TURNOS POR HORA · PROYECTOS CORTOS
+        </p>
+        <h1
+          class="mx-auto mt-4 mb-6 max-w-4xl text-3xl leading-heading font-bold text-brand-petroleum md:mt-4.5 md:text-4xl md:leading-none"
+        >
+          Tecnología que activa el talento universitario en minutos
+        </h1>
+        <p class="mx-auto max-w-190 text-body leading-relaxed md:text-lg">
+          En UWork hacemos match entre tu necesidad administrativa u operacional
+          y estudiantes de universidades, institutos y CFT, según su carrera,
+          habilidades y disponibilidad. Tú publicas y, con la ayuda de IA,
+          encontramos a la persona correcta en minutos.
+        </p>
+        <StudentCarousel />
+      </div>
+      <div
+        class="mt-8 flex flex-col justify-center gap-3.75 md:flex-row md:gap-4.5"
+      >
+        <Button variant="secondary" nativeNavigation href="#company-needs">
+          Conoce nuestros servicios
+        </Button>
+        <Button nativeNavigation href="#business-contact">
+          Necesito un estudiante
+        </Button>
+      </div>
+    </div>
+  </section>
+  <Brands />
+  <Services />
+  <Process />
+  <section
+    data-reveal
+    aria-labelledby="metrics-title"
+    class="px-6 py-16 text-center md:px-page-gutter md:pt-17.5 md:pb-23.75"
+  >
+    <p class="mb-3 text-sm text-brand-gray">Resultados que se notan</p>
+    <h2
+      id="metrics-title"
+      class="text-section leading-tight font-bold tracking-tight text-brand-petroleum md:text-section-fluid"
+    >
+      UWork en números
+    </h2>
+    <dl
+      class="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-4"
+    >
+      {
+        metrics.map(({ value, label }) => (
+          <div class="flex min-w-0 flex-col items-center gap-4 px-2 py-4">
+            <dt class="order-2 max-w-56 text-sm leading-relaxed text-pretty text-brand-gray">
+              {label}
+            </dt>
+            <dd class="order-1 text-4xl leading-none font-bold whitespace-nowrap text-brand-petroleum tabular-nums sm:text-5xl">
+              {value}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+  <Testimonials />
+  <section
+    data-reveal
+    aria-labelledby="business-contact"
+    class="px-6 py-16 md:px-page-gutter md:py-21.25 text-center"
+  >
+    <h2
+      id="business-contact"
+      class="scroll-mt-4 text-panel-title leading-section font-bold tracking-section text-brand-petroleum md:text-contact-title"
+    >
+      Cuéntanos qué necesitas y te respondemos hoy
+    </h2>
+    <p class="mt-3.5 text-caption leading-copy text-brand-gray md:text-body-sm">
+      Cuéntanos el tipo de trabajo, los horarios y el apoyo que necesitas.
+    </p>
+    <ContactForm />
+  </section>
+</MainLayout>

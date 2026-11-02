@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+@custom-variant current-step (&[aria-current="step"]);
+@custom-variant step-complete (&[data-complete="true"]);
+
+@utility grid-cols-footer {
+  grid-template-columns: 1.1fr 1fr 1fr 1fr;
+}
+
+@utility transition-height {
+  transition-property: height;
+}
+
+@utility animate-paused {
+  animation-play-state: paused;
+}
+
+/* Keep native hidden panels hidden even when they also have flex/grid utilities. */
+[hidden]:not([hidden="until-found"]) {
+  display: none !important;
+}
+
+/* Paleta digital UWork; tonos suaves derivados para fondos y bordes. */
+@theme {
+  --font-sans: "Poppins", sans-serif;
+  --color-brand-header: #fcfcfc;
+  --text-2xs: 0.625rem;
+  --text-fine: 0.6875rem;
+  --text-caption: 0.8125rem;
+  --text-body-sm: 0.9375rem;
+  --text-body: 1.0625rem;
+  --text-card-title: 1.3125rem;
+  --text-panel-title: 1.5625rem;
+  --text-section-mobile: 1.6875rem;
+  --text-section: 1.75rem;
+  --text-service-title: 1.8125rem;
+  --text-contact-title: 2.125rem;
+  --text-section-fluid: clamp(1.75rem, 3vw, 2.625rem);
+  --text-brands-fluid: clamp(1.75rem, 2.7vw, 2.75rem);
+  --radius-field: 0.625rem;
+  --radius-profile-label: 0.9375rem;
+  --radius-testimonial: 1.375rem;
+  --radius-panel: 1.625rem;
+  --radius-section: 1.75rem;
+  --radius-service: 2.1875rem;
+  --leading-heading: 1.1;
+  --leading-hero: 1.15;
+  --leading-section: 1.24;
+  --leading-card: 1.35;
+  --leading-caption: 1.4;
+  --leading-body: 1.6;
+  --leading-copy: 1.7;
+  --leading-description: 1.8;
+  --tracking-label: 0.0625rem;
+  --tracking-card: 0.075rem;
+  --tracking-kicker: 0.0875rem;
+  --tracking-section: -0.0625rem;
+  --spacing-page-gutter: max(1.5rem, calc((100vw - 75rem) / 2));
+  --spacing-process-track: 460vh;
+  --spacing-process-panel: calc(100svh - 4rem);
+  --spacing-process-panel-desktop: calc(100svh - 5rem);
+  --spacing-process-progress: calc(100% - 2rem);
+  --shadow-scanner: 0 0 0.75rem rgb(255 255 255 / 0.9);
+  --color-brand-mint: #00e0b9;
+  --color-brand-orange: #ffa412;
+  --color-brand-petroleum: #005669;
+  --color-brand-gray: #585857;
+  --color-social-whatsapp: #25d366;
+  --color-social-instagram: #e4405f;
+  --color-social-tiktok: #25f4ee;
+  --color-social-linkedin: #0a66c2;
+  --color-brand-surface: color-mix(in srgb, var(--color-brand-mint) 7%, white);
+  --color-brand-soft: color-mix(in srgb, var(--color-brand-mint) 20%, white);
+  --color-brand-border: color-mix(
+    in srgb,
+    var(--color-brand-petroleum) 18%,
+    white
+  );
+  --color-brand-hover: color-mix(
+    in srgb,
+    var(--color-brand-mint) 88%,
+    var(--color-brand-petroleum)
+  );
+  --color-brand-focus: var(--color-brand-petroleum);
+  --color-brand-shadow: color-mix(
+    in srgb,
+    var(--color-brand-petroleum) 14%,
+    transparent
+  );
+  --shadow-brand-button: 0 3px 6px var(--color-brand-shadow);
+  --shadow-brand-tab: 0 3px 7px var(--color-brand-shadow);
+  --shadow-brand-header: 0 6px 24px
+    color-mix(in srgb, var(--color-brand-petroleum) 24%, transparent);
+  --shadow-brand-menu: 0 12px 20px var(--color-brand-shadow);
+  --shadow-brand-testimonial: 0 5px 14px var(--color-brand-shadow);
+  --animate-scanner-sweep: scanner-sweep 2.2s ease-in-out infinite alternate;
+  --animate-orbit-slow: orbit 35s linear infinite;
+  --animate-orbit-slow-reverse: orbit 35s linear infinite reverse;
+  --animate-orbit-fast: orbit 25s linear infinite;
+  --animate-orbit-fast-reverse: orbit 25s linear infinite reverse;
+  --animate-marquee: marquee 65s linear infinite;
+  --animate-enter: enter 0.45s ease;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("@/assets/fonts/a218039a3287bcfd-s.p.4a23d71b.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("@/assets/fonts/8e6fa89aa22d24ec-s.p.3aec397d.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("@/assets/fonts/e2334d715941921e-s.p.d82a9aff.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("@/assets/fonts/47fe1b7cd6e6ed85-s.p.855a563b.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("@/assets/fonts/829ba4228c966254-s.p.a61bc753.woff2") format("woff2");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-mint);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-hover);
+}
+
+@keyframes scanner-sweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(350%);
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Global defaults. Component appearance is defined with Tailwind utilities. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  font-family: var(--font-sans);
+}
+
+body {
+  background: white;
+  color: var(--color-brand-gray);
+}
+
+button,
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-brand-focus);
+  outline-offset: 5px;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Align these anchors below the header, including the global scroll padding. */
+#empresas {
+  scroll-margin-top: -36px;
+}
+#personas,
+#company-needs {
+  /* The section's own padding already leaves room for the fixed header. */
+  scroll-margin-top: -50px;
+}
+@media (min-width: 768px) {
+  #empresas {
+    scroll-margin-top: -20px;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Center compact student sections; long mobile sections stay below the header. */
+section[data-center-anchor] {
+  scroll-margin-top: -100px;
+}

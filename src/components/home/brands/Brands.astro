@@ -1,0 +1,202 @@
+---
+import BrandLogo from "@/components/home/brands/BrandLogo.astro";
+import { Button } from "@/components/ui/button";
+const brands = [
+  {
+    name: "Universidad Diego Portales",
+    file: "udp-logo",
+    x: 180,
+    y: 365,
+    top: 385,
+    color: "text-brand-mint",
+  },
+  {
+    name: "Universidad de los Andes",
+    file: "uandes",
+    x: 410,
+    y: 280,
+    top: 300,
+    color: "text-brand-mint",
+  },
+  {
+    name: "ESE Business School",
+    file: "esebusiness",
+    x: 665,
+    y: 225,
+    top: 245,
+    color: "text-brand-mint",
+  },
+  {
+    name: "Banco Santander",
+    file: "santander",
+    x: 940,
+    y: 230,
+    top: 124,
+    color: "text-brand-petroleum",
+  },
+  {
+    name: "Clínica Universidad de los Andes",
+    file: "clinicauandes",
+    x: 780,
+    y: 115,
+    top: 9,
+    color: "text-brand-mint",
+  },
+  {
+    name: "SOFOFA",
+    file: "sofofa",
+    x: 1450,
+    y: 200,
+    top: 94,
+    color: "text-brand-petroleum",
+  },
+  {
+    name: "CP Data",
+    file: "cpdata",
+    x: 740,
+    y: 420,
+    top: 440,
+    color: "text-brand-orange",
+  },
+  {
+    name: "Metropol",
+    file: "metropol",
+    x: 1040,
+    y: 520,
+    top: 374,
+    color: "text-brand-orange",
+  },
+  {
+    name: "Fundación Las Rosas",
+    file: "fundacionrosas",
+    x: 1250,
+    y: 520,
+    top: 482,
+    connection: false,
+    color: "text-brand-orange",
+  },
+  {
+    name: "Concha y Toro",
+    file: "conchaytoro",
+    x: 1500,
+    y: 490,
+    top: 510,
+    color: "text-brand-orange",
+  },
+];
+---
+
+<section
+  id="empresas"
+  aria-labelledby="brands-title"
+  class="overflow-hidden pt-8 pb-12 md:pt-10 md:pb-16"
+>
+  <div class="relative mx-auto max-w-400 px-6 lg:px-0">
+    <div class="relative z-10 max-w-xl lg:absolute lg:top-2 lg:left-1/25 lg:w-7/20">
+      <h2
+        id="brands-title"
+        class="text-3xl leading-tight font-extrabold tracking-tight text-brand-petroleum sm:text-4xl lg:text-brands-fluid"
+      >
+        Ya confiaron (y confían)
+        <br />
+        en UWork [+100] empresas
+      </h2>
+      <div
+        aria-hidden="true"
+        class="mt-4 mb-5 h-1.5 w-20 rounded-full bg-brand-mint"
+      ></div>
+      <Button variant="secondary" nativeNavigation href="#como-funciona">
+        Conoce cómo trabajamos
+      </Button>
+    </div>
+    <div class="relative hidden aspect-1600/620 lg:block">
+      <svg
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 size-full"
+        viewBox="0 0 1600 620"
+        fill="none"
+      >
+        <path
+          d="M-30 485C65 485 90 365 180 365C260 365 270 400 335 360C370 338 365 280 410 280C475 280 470 330 540 305C600 282 600 225 665 225C725 225 725 115 780 115"
+          class="stroke-brand-mint"
+          stroke-width="3"
+        ></path>
+        <path
+          d="M940 230C1000 200 1040 180 1080 160C1120 140 1165 115 1220 115C1320 115 1365 170 1450 200"
+          class="stroke-brand-petroleum"
+          stroke-width="3"
+        ></path>
+        <path
+          d="M1450 200C1510 240 1560 270 1630 245"
+          class="stroke-brand-gray"
+          stroke-width="3"
+        ></path>
+        <path
+          d="M1040 450V520H1360C1420 520 1460 490 1500 490C1550 490 1590 460 1630 430"
+          class="stroke-brand-orange"
+          stroke-width="3"
+        ></path>
+        <path
+          d="M940 230C925 310 875 420 740 420"
+          class="stroke-brand-orange"
+          stroke-width="3"
+        ></path>
+        {brands
+          .filter(({ connection = true }) => connection)
+          .map(({ x, y, top, color }) => (
+            <g class={color}>
+              <path
+                d={`M${x} ${y}V${top > y ? top : top + 76}`}
+                stroke="currentColor"
+                stroke-width="3"
+              />
+              <circle cx={x} cy={y} r="10" fill="currentColor" />
+            </g>
+          ))}
+        <g class="text-brand-gray/30" stroke="currentColor" stroke-width="1.6">
+          {[12, 14, 17, 20, 24, 29, 35, 42, 50, 59, 69, 81, 94, 109, 126].map(
+            (height, index) => (
+              <path d={`M${80 + index * 20} 594v-${height * 0.66}`} />
+            ),
+          )}
+          <path d="M50 545C175 544 295 527 380 490"></path>
+          <path
+            d="M380 490l-11 2 5 4-1 7Z"
+            fill="currentColor"
+            stroke="none"
+          ></path>
+        </g>
+      </svg>
+      {brands.map(({ name, file, x, top }) => (
+        <div
+          class="absolute z-10 w-1/8"
+          style={{
+            left: `${((x - 100) / 1600) * 100}%`,
+            top: `${(top / 620) * 100}%`,
+          }}
+        >
+          <BrandLogo name={name} file={file} />
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:hidden">
+      {brands.map(({ name, file }) => (
+        <BrandLogo name={name} file={file} />
+      ))}
+    </div>
+  </div>
+  <div
+    aria-hidden="true"
+    class="mt-5 flex h-1.5 max-w-400 mx-auto overflow-hidden"
+  >
+    <span class="w-1/4 bg-brand-mint"></span>
+    <span class="w-1/4 bg-brand-petroleum"></span>
+    <span class="w-1/4 bg-brand-orange"></span>
+    <span class="w-1/4 bg-brand-gray"></span>
+  </div>
+  <p class="mx-auto mt-6 max-w-7xl px-6 text-center text-base leading-relaxed text-brand-petroleum sm:text-lg">
+    Más de <strong class="font-bold">25.000 estudiantes</strong> de{" "}
+    <strong class="font-bold">26 instituciones de educación superior</strong> ya
+    son parte de UWork.
+  </p>
+</section>

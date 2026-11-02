@@ -1,0 +1,63 @@
+---
+import ProcessIllustration from "./ProcessIllustration";
+import { steps } from "./steps";
+interface Props {
+  step: number;
+}
+const { step } = Astro.props;
+const [label, title, description, detail] = steps[step];
+---
+
+<li
+  id={"process-step-" + step}
+  data-process-row={step}
+  data-complete={step === 0}
+  data-active="false"
+  class="relative grid min-h-32 grid-cols-1 items-center gap-4 pl-9 sm:grid-cols-[7.5rem_1fr] sm:gap-6"
+>
+  <span
+    aria-hidden="true"
+    class="process-dot absolute top-1/2 left-0 z-10 size-4 -translate-y-1/2 rounded-full transition-colors duration-300 motion-reduce:transition-none"
+  ></span>
+  <div
+    data-process-illustration
+    class="flex size-24 items-center justify-center overflow-hidden rounded-3xl bg-brand-surface sm:size-30"
+  >
+    <ProcessIllustration step={step} />
+  </div>
+  <div data-process-copy>
+    <h3 class="text-base font-semibold tracking-wide text-brand-petroleum">
+      {label === "VOY EN CAMINO" ? "“VOY EN CAMINO”" : label}
+    </h3>
+    {
+      title && (
+        <p class="mt-1 text-lg leading-snug font-medium text-brand-petroleum">
+          {title}
+        </p>
+      )
+    }
+    {
+      description && (
+        <p class="mt-2 text-sm leading-relaxed text-brand-gray">
+          {description}
+        </p>
+      )
+    }
+    {
+      detail && (
+        <p class="mt-2 text-sm font-medium text-brand-petroleum">{detail}</p>
+      )
+    }
+  </div>
+</li>
+
+<style>
+  .process-dot {
+    border: 4px solid white;
+    outline: 1px solid var(--color-brand-mint);
+    background-color: var(--color-brand-soft);
+  }
+  li[data-complete="true"] .process-dot {
+    background-color: var(--color-brand-mint);
+  }
+</style>

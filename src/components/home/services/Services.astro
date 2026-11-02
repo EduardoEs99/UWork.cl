@@ -1,0 +1,137 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  PartyPopper,
+  ShoppingBag,
+  MapPin,
+  Truck,
+  PackageCheck,
+  Monitor,
+} from "lucide-react";
+const icons = [PartyPopper, ShoppingBag, MapPin, Truck, PackageCheck, Monitor];
+const groups = [
+  {
+    id: "puntuales",
+    tab: "Para empresas",
+    title: "Para empresas",
+    lead: "Apoyo para tu necesidad administrativa u operacional.",
+    description:
+      "Estudiantes de universidades, institutos y CFT según su carrera, habilidades y disponibilidad.",
+    action: "Cotiza tu equipo",
+    items: [
+      [
+        "Eventos y activaciones",
+        "Anfitriones, staff, promotores, degustaciones y apoyo en ferias.",
+      ],
+      [
+        "Retail",
+        "Reposición, sampling, apoyo en temporada alta y auditorías de sala.",
+      ],
+      [
+        "Trabajo en terreno",
+        "Levantamiento de información, visitas y catastros.",
+      ],
+      ["Logística y bodega", "Picking, packing, despacho, carga y descarga."],
+      ["Inventarios", "Conteo, etiquetado y control de stock."],
+      [
+        "Apoyo administrativo",
+        "Digitación, bases de datos, back office y encuestas.",
+      ],
+    ],
+  },
+  {
+    id: "personas",
+    tab: "Para personas",
+    title: "Publica tu tarea",
+    lead: "Cuéntanos qué necesitas.",
+    description:
+      "Describe tu tarea, el horario, el lugar y el perfil que buscas.",
+    action: "Publica tu tarea",
+    items: [
+      ["Tu necesidad", "Cuéntanos qué tipo de apoyo necesitas."],
+      ["Fecha y horario", "Indica cuándo y por cuánto tiempo necesitas ayuda."],
+      ["Lugar", "Dinos dónde se realizará la tarea."],
+      ["Perfil", "Describe las habilidades que buscas en un estudiante."],
+    ],
+  },
+];
+---
+
+<section
+  id="company-needs"
+  class="py-16 md:px-page-gutter md:py-21.25 relative overflow-hidden px-4 text-center"
+>
+  <span id="personas" class="absolute top-0 left-0" aria-hidden="true"></span>
+  <h2 class="mb-6 text-section-mobile leading-section font-bold tracking-section text-brand-petroleum md:mb-9 md:text-section-fluid">
+    ¿En qué te podemos ayudar hoy?
+  </h2>
+  <div data-service-tabs>
+    <div
+      role="tablist"
+      aria-label="Tipos de solución"
+      class="inline-flex w-full max-w-full gap-0 rounded-2xl bg-brand-surface p-1 md:w-auto md:gap-1 md:rounded-full md:p-1.5"
+    >
+      {groups.map((g) => (
+        <button
+          type="button"
+          role="tab"
+          id={"tab-" + g.id}
+          aria-controls={"panel-" + g.id}
+          aria-selected={g.id === "puntuales"}
+          tabindex={g.id === "puntuales" ? 0 : -1}
+          data-state={g.id === "puntuales" ? "active" : "inactive"}
+          class="flex-1 rounded-xl px-2.5 py-2.75 text-caption leading-normal text-brand-petroleum transition-colors aria-selected:bg-brand-mint aria-selected:text-brand-petroleum aria-selected:shadow-brand-tab md:flex-none md:rounded-full md:px-7 md:py-3.25 md:text-sm md:whitespace-nowrap hover:bg-brand-orange/50 duration-300 ease-in-out"
+        >
+          {g.tab}
+        </button>
+      ))}
+    </div>
+    {groups.map((g) => (
+      <div
+        role="tabpanel"
+        id={"panel-" + g.id}
+        aria-labelledby={"tab-" + g.id}
+        hidden={g.id !== "puntuales"}
+        tabindex="0"
+        class="relative z-10 min-h-102.5 pt-7 outline-offset-6 md:pt-8.75"
+      >
+        <div class="rounded-4xl bg-brand-surface px-4.5 py-11.25 md:rounded-service md:px-8.75">
+          <div class="mx-auto max-w-175">
+            <h3 class="mb-2.5 text-panel-title font-bold text-brand-petroleum md:text-service-title">
+              {g.title}
+            </h3>
+            <p class="text-caption leading-description text-brand-petroleum md:text-body-sm">
+              {g.lead}
+            </p>
+            <p class="text-caption leading-description text-brand-petroleum md:text-body-sm">
+              {g.description}
+            </p>
+          </div>
+          <div class="mx-auto my-6 grid max-w-237.5 grid-cols-2 gap-2 text-left md:my-10 md:grid-cols-3 md:gap-7.5">
+            {g.items.map(([title, description], i) => {
+              const Icon = icons[i];
+              return (
+                <article class="rounded-2xl px-2 py-3 md:p-5">
+                  <Icon className="mb-3.75 size-6.25 text-brand-orange md:size-7.5" />
+                  <h4 class="mb-2 text-xs font-semibold md:text-body-sm">
+                    {title}
+                  </h4>
+                  <p class="text-fine leading-relaxed text-brand-gray md:text-caption">
+                    {description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+          <Button nativeNavigation href="#business-contact">
+            {g.action}
+          </Button>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import "./services.js";
+</script>
