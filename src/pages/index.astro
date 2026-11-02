@@ -128,18 +128,23 @@ const metrics = [
   const metricButtons = [
     ...document.querySelectorAll<HTMLButtonElement>("[data-metric-button]"),
   ];
+
   metricButtons.forEach((button) => {
     const target = Number(button.dataset.countTarget);
     const suffix = button.dataset.countSuffix ?? "";
     const decimals = Number(button.dataset.countDecimals ?? 0);
+
     const formatter = new Intl.NumberFormat("es-CL", {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     });
+
     const formatCount = (value: number) =>
       `${formatter.format(value)}${suffix}`;
+
     let isCounting = false;
     let animationFrame: number | undefined;
+    let pointerType = "mouse";
 
     const animateCount = () => {
       if (isCounting) return;
@@ -151,14 +156,14 @@ const metrics = [
 
       isCounting = true;
       const startTime = performance.now();
-      const duration = 2800;
-      button.textContent = formatCount(0);
+      const duration = 1000;
 
       const updateCount = (currentTime: number) => {
         const progress = Math.min(
           Math.max((currentTime - startTime) / duration, 0),
           1,
         );
+
         button.textContent = formatCount(target * progress);
 
         if (progress < 1) {
@@ -176,8 +181,14 @@ const metrics = [
     button.addEventListener("pointerenter", (event) => {
       if (event.pointerType !== "touch") animateCount();
     });
+
+    button.addEventListener("pointerdown", (event) => {
+      pointerType = event.pointerType;
+    });
+
     button.addEventListener("pointerleave", (event) => {
       if (event.pointerType === "touch") return;
+
       if (animationFrame !== undefined) {
         window.cancelAnimationFrame(animationFrame);
         animationFrame = undefined;
@@ -185,6 +196,9 @@ const metrics = [
       isCounting = false;
       button.textContent = formatCount(target);
     });
-    button.addEventListener("click", animateCount);
+
+    button.addEventListener("click", (event) => {
+      if (event.detail === 0 || pointerType === "touch") animateCount();
+    });
   });
 </script>
