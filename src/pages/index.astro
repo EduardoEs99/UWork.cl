@@ -84,22 +84,23 @@ const metrics = [
     </h2>
     <dl class="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
       {metrics.map(({ value, count, suffix, decimals, label }) => (
-        <div class="flex min-w-0 flex-col items-center gap-4 px-2 py-4">
+        <div
+          class="flex min-w-0 flex-col items-center gap-4 px-2 py-4 group cursor-default"
+          data-metric-card
+        >
           <dt class="order-2 max-w-56 text-sm leading-relaxed text-pretty text-brand-gray">
             {label}
           </dt>
-          <dd class="order-1 text-4xl leading-none font-bold whitespace-nowrap text-brand-petroleum tabular-nums sm:text-5xl">
-            <button
-              type="button"
-              class="inline-block rounded"
-              data-metric-button
+          <dd class="order-1 text-4xl leading-none font-bold whitespace-nowrap text-brand-petroleum tabular-nums sm:text-5xl transition-transform duration-300 group-hover:scale-105">
+            <span
+              class="inline-block"
+              data-metric-counter
               data-count-target={count}
               data-count-suffix={suffix}
               data-count-decimals={decimals}
-              aria-label={"Animar " + label}
             >
               {value}
-            </button>
+            </span>
           </dd>
         </div>
       ))}
@@ -125,80 +126,87 @@ const metrics = [
 </MainLayout>
 
 <script>
-  const metricButtons = [
-    ...document.querySelectorAll<HTMLButtonElement>("[data-metric-button]"),
+  const metricCards = [
+    ...document.querySelectorAll<HTMLElement>("[data-metric-card]"),
   ];
 
-  metricButtons.forEach((button) => {
-    const target = Number(button.dataset.countTarget);
-    const suffix = button.dataset.countSuffix ?? "";
-    const decimals = Number(button.dataset.countDecimals ?? 0);
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+  metricCards.forEach((card) => {
+    const counter = card.querySelector<HTMLElement>("[data-metric-counter]");
+    if (!counter) return;
+
+    const target = Number(counter.dataset.countTarget);
+    const suffix = counter.dataset.countSuffix ?? "";
+    const decimals = Number(counter.dataset.countDecimals ?? 0);
 
     const formatter = new Intl.NumberFormat("es-CL", {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     });
 
-    const formatCount = (value: number) =>
-      `${formatter.format(value)}${suffix}`;
+    const formatCount = (val: number) =>
+      `${formatter.format(val)}${suffix}`;
 
-    let isCounting = false;
-    let animationFrame: number | undefined;
-    let pointerType = "mouse";
+    let rafId: number | null = null;
+    let isHovered = false;
 
-    const animateCount = () => {
-      if (isCounting) return;
-
+    const runAnimation = () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        button.textContent = formatCount(target);
+        counter.textContent = formatCount(target);
         return;
       }
 
-      isCounting = true;
-      const startTime = performance.now();
-      const duration = 1000;
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
 
-      const updateCount = (currentTime: number) => {
-        const progress = Math.min(
-          Math.max((currentTime - startTime) / duration, 0),
-          1,
-        );
+      const start = performance.now();
+      const durationMs = 1500;
 
-        button.textContent = formatCount(target * progress);
+      const step = (now: number) => {
+        const progress = Math.min(1, (now - start) / durationMs);
+        const easedProgress = easeOutCubic(progress);
+        const currentVal = target * easedProgress;
+        counter.textContent = formatCount(currentVal);
 
         if (progress < 1) {
-          animationFrame = window.requestAnimationFrame(updateCount);
+          rafId = requestAnimationFrame(step);
         } else {
-          button.textContent = formatCount(target);
-          isCounting = false;
-          animationFrame = undefined;
+          counter.textContent = formatCount(target);
+          rafId = null;
         }
       };
 
-      animationFrame = window.requestAnimationFrame(updateCount);
+      counter.textContent = formatCount(0);
+      rafId = requestAnimationFrame(step);
     };
 
-    button.addEventListener("pointerenter", (event) => {
-      if (event.pointerType !== "touch") animateCount();
+    // Initial load animation using IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observerInstance.unobserve(entry.target);
+            runAnimation();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(card);
+
+    // Hover animation using mouseenter
+    card.addEventListener("mouseenter", () => {
+      if (isHovered) return;
+      isHovered = true;
+      runAnimation();
     });
 
-    button.addEventListener("pointerdown", (event) => {
-      pointerType = event.pointerType;
-    });
-
-    button.addEventListener("pointerleave", (event) => {
-      if (event.pointerType === "touch") return;
-
-      if (animationFrame !== undefined) {
-        window.cancelAnimationFrame(animationFrame);
-        animationFrame = undefined;
-      }
-      isCounting = false;
-      button.textContent = formatCount(target);
-    });
-
-    button.addEventListener("click", (event) => {
-      if (event.detail === 0 || pointerType === "touch") animateCount();
+    card.addEventListener("mouseleave", () => {
+      isHovered = false;
     });
   });
 </script>
